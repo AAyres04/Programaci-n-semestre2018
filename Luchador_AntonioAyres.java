@@ -78,6 +78,7 @@ public class Luchador {
     private String randomString(String[] lista){//Random String a partir de una array
         return lista[numeroRandom(0, lista.length-1)];
     }
+    
     public void mostrarLuchador(){ // reemplazo a "toString()"
         System.out.println("Nombre: " + this.nombre + "\n" +
                 "Facción: " + this.faccion + "\n" +
@@ -114,5 +115,31 @@ public class Luchador {
     
     public void mostrarFaccion(){
         System.out.println(this.faccion);
+    }
+    
+    //TAREA N 2 - Todo lo que esta debajo fue añadido para la tarea 2
+    
+    public int getAtk(){
+        return this.atk;
+    }
+    
+    public int getDef(){
+        return this.def;
+    }
+    
+    public int getHp(){
+        return this.hp;
+    }
+    
+    public int getSpd(){
+        return this.spd;
+    }
+    
+    public String getNombre(){
+        return this.nombre;
+    }
+    
+    public String getFaccion(){
+        return this.faccion;
     }
 }
