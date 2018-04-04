@@ -27,7 +27,7 @@ public class InventarioLuchadores {
     }
     
     public void addLuchador(Luchador luchador){
-        if (this.luchadores.size() < 25){
+        if (cantidadLuchadores() < 25){
             this.luchadores.add(luchador);
         } else {
             System.out.println("Maximo alcanzado");
@@ -55,7 +55,7 @@ public class InventarioLuchadores {
     
     private ArrayList<Luchador> filtrarNombre(String nombre){
         ArrayList<Luchador> aux = new ArrayList<>();
-        for (int i = 0; i < this.luchadores.size(); i++){
+        for (int i = 0; i < cantidadLuchadores(); i++){
             if (this.luchadores.get(i).getNombre().equals(nombre)){
                 aux.add(this.luchadores.get(i));
             }
@@ -65,7 +65,7 @@ public class InventarioLuchadores {
     
     private ArrayList<Luchador> filtrarFaccion(String faccion){
         ArrayList<Luchador> aux = new ArrayList<>();
-        for (int i = 0; i < this.luchadores.size(); i++){
+        for (int i = 0; i < cantidadLuchadores(); i++){
             if (this.luchadores.get(i).getFaccion().equals(faccion)){
                 aux.add(this.luchadores.get(i));
             }
@@ -83,7 +83,7 @@ public class InventarioLuchadores {
     }
     
     public void mostrarLuchadores(){
-        for (int i = 0; i < this.luchadores.size(); i++){
+        for (int i = 0; i < cantidadLuchadores(); i++){
             System.out.println("------------------Luchador N°" + i + "------------------");
             this.luchadores.get(i).mostrarNombre();
             this.luchadores.get(i).mostrarFaccion();

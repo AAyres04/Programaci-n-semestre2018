@@ -19,7 +19,7 @@ public class ObjetoEquipable {
     public ObjetoEquipable(){
         this.star = generarStar();
         this.nombreObjeto = randomString(listaNombre());
-        this.multiplicador = generarBase(1, 9, this.star); 
+        this.multiplicador = generarBase(1, 9, this.star);
     }
     
     public String getNombreObjeto(){
@@ -85,5 +85,37 @@ public class ObjetoEquipable {
         System.out.println("Nombre del Objeto: " + this.nombreObjeto + "\n" +
                 "Stat: " + this.multiplicador + " (base: " + this.multiplicador/this.star + ")" + "\n" +
                 "Estrellas: " + this.star);
+    }
+    
+    public int elegirEstadistica(){
+        return numeroRandom(1, 4);
+    }
+    
+    public void mejorarEstadistica(int opcion, Luchador luchador){
+        switch (opcion){
+            case 1:
+                luchador.setAtk(luchador.getAtk()*this.multiplicador);
+                break;
+            case 2:
+                luchador.setDef(luchador.getDef()*this.multiplicador);
+                break;
+            case 3:
+                luchador.setHp(luchador.getHp()*this.multiplicador);
+                break;
+            case 4:
+                luchador.setSpd(luchador.getSpd()*this.multiplicador);
+        }
+    }
+    
+    public void mostrarMultiplicador(){
+        System.out.println("Multiplicador: " + this.multiplicador);
+    }
+    
+    public void mostrarNombre(){
+        System.out.println("Nombre: " + this.nombreObjeto);
+    }
+    
+    public void mostrarStar(){
+        System.out.println("Estrellas: " + this.star);
     }
 }

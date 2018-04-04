@@ -123,16 +123,32 @@ public class Luchador {
         return this.atk;
     }
     
+    public void setAtk(int atk){
+        this.atk = atk;
+    }
+    
     public int getDef(){
         return this.def;
+    }
+    
+    public void setDef(int def){
+        this.def = def;
     }
     
     public int getHp(){
         return this.hp;
     }
     
+    public void setHp(int hp){
+        this.hp = hp;
+    }
+    
     public int getSpd(){
         return this.spd;
+    }
+    
+    public void setSpd(int spd){
+        this.spd = spd;
     }
     
     public String getNombre(){
@@ -142,4 +158,6 @@ public class Luchador {
     public String getFaccion(){
         return this.faccion;
     }
+    
+    
 }
