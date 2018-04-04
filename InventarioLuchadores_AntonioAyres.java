@@ -27,7 +27,11 @@ public class InventarioLuchadores {
     }
     
     public void addLuchador(Luchador luchador){
-        this.luchadores.add(luchador);
+        if (this.luchadores.size() < 25){
+            this.luchadores.add(luchador);
+        } else {
+            System.out.println("Maximo alcanzado");
+        }
     }
     
     public void rmLuchador(int posicion){
