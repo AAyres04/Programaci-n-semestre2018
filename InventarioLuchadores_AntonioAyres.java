@@ -84,7 +84,7 @@ public class InventarioLuchadores {
     
     public void mostrarLuchadores(){
         for (int i = 0; i < cantidadLuchadores(); i++){
-            System.out.println("------------------Luchador N°" + i + "------------------");
+            System.out.println("------------------Luchador N°" + i+1 + "------------------");
             this.luchadores.get(i).mostrarNombre();
             this.luchadores.get(i).mostrarFaccion();
             this.luchadores.get(i).mostrarStar();
@@ -94,7 +94,7 @@ public class InventarioLuchadores {
     public void elegirLuchador(int index){
         String aviso = "Luchador fuera de rango";
         if (validarIndex(index)){
-            System.out.println("------------------Luchador N°" + index + "------------------");
+            System.out.println("------------------Luchador N°" + index+1 + "------------------");
             this.luchadores.get(index).mostrarLuchador();
         } else {
             System.out.println(aviso);
@@ -102,7 +102,7 @@ public class InventarioLuchadores {
     }
     
     private boolean validarIndex(int index){ //en caso de usarlo en otro método
-        return index > 0 && index < this.luchadores.size();
+        return index > 0 && index < cantidadLuchadores();
     }
     
     public int cantidadLuchadores(){
