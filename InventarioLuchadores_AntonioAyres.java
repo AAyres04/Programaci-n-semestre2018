@@ -16,6 +16,7 @@ public class InventarioLuchadores {
     
     public InventarioLuchadores(){
         this.luchadores = new ArrayList<>();
+        addLuchador(new Luchador());// LUCHADOR DEFAULT
     }
     
     public ArrayList<Luchador> getLuchadores(){
