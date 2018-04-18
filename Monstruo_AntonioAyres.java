@@ -16,6 +16,7 @@ public class Monstruo {
     private int atk;
     private int def;
     private int spd;
+    private String faccion; //AGREGADO DESPUES DEL MODELO UML, CAMBIOS REFLEJADOS EN AVANCE 5
     
     public Monstruo(){
         this.hp = 0;
@@ -43,6 +44,7 @@ public class Monstruo {
         this.hp = generarBase(3500, 4000);
         this.def = generarBase(5, 25);
         this.spd = generarBase(10, 100);
+        this.faccion = randomString(listaFaccion());
     }
     
     public ObjetoEquipable crearObjetoDropeable(){
@@ -50,6 +52,15 @@ public class Monstruo {
         System.out.println("---drop---");
         drop.mostrarObjeto();
         return drop;
+    }
+    
+    private String[] listaFaccion(){
+        String[] listaFaccion = {"Agua", "Tierra", "Fuego"};
+        return listaFaccion;
+    }
+    
+    private String randomString(String[] lista){//Random String a partir de una array
+        return lista[numeroRandom(0, lista.length-1)];
     }
     
 }
