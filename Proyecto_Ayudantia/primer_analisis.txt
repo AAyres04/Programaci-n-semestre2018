@@ -1,0 +1,35 @@
+Análisis sobre el diagrama de clases UML // Antonio Ayres
+
+===============================================
+
+Clases del paquete proyecto_ayudantia*
+
+-Luchador
+-InvetarioLuchadores
+-ObjetoEquipable
+-InventarioObjetos
+-Monstruo
+
+*El paquete se encuentra dentro del proyecto completo, el cual no esta directamente como carpeta en github.
+Lo anterior sera implementado en un futuro, sin embargo se puede tener acceso a la carpeta completa a través de "Proyecto_Ayudantia-Resapldo.zip"
+===============================================
+
+En esta etapa del desarrollo del proyecto, existen 2 asociaciones (tipos aun por definir) y una dependencia.
+
+Dependencia:
+
+-La clase "Monstruo" utiliza a la clase "ObjetoEquipalble" para generar un objeto dropeable. Su existencia solo se conoce
+en el método "CrearObjetoDropeable()", ya que el monstruo en si no necesita "objetoEquipable" como un atributo que lo defina.
+
+Asociaciones:
+
+-La clase "InventarioLuchadores" esta asociada con "Luchador", este ultimo sin conocer de la existencia de la otra clase
+(no lo utiliza en ningún atributo/método), mientras que InventarioLuchadores implementa un ArrayList de tipo Luchador llamado "luchadores". 
+En este problema, existirá 1 solo "InventarioLuchadores", el cual tendrá desde 1 hasta 25 elementos de la clase "Luchador".
+
+-La clase "InventarioObjetos" esta asociada con "ObjetoEquipable", este ultimo sin conocer de la existencia de la otra clase
+(no lo utiliza en ningún atributo/método). mientras que InventarioObjetos implementa un ArrayList de tipo ObjetoEquipable llamado "objetos". 
+En este problema, existirá 1 solo "InventarioObjetos", el cual tendrá desde 0 hasta 10 elementos de la clase "ObjetoEquipable".
+
+===============================================
+
