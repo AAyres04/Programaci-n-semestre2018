@@ -14,7 +14,7 @@ import java.util.Random;
 public class ObjetoEquipable {
     private String nombreObjeto;
     private int star; 
-    private int multiplicador; //Stat del objeto
+    private double multiplicador; //Stat del objeto
     
     public ObjetoEquipable(){
         this.star = generarStar();
@@ -30,7 +30,7 @@ public class ObjetoEquipable {
         return this.star;
     }
     
-    public int getMultiplicador(){
+    public double getMultiplicador(){
         return this.multiplicador;
     }
     

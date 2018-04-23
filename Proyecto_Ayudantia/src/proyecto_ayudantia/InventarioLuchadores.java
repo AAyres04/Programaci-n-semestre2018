@@ -85,10 +85,9 @@ public class InventarioLuchadores {
     
     public void mostrarLuchadores(){
         for (int i = 0; i < cantidadLuchadores(); i++){
-            System.out.println("------------------Luchador N°" + i+1 + "------------------");
-            this.luchadores.get(i).mostrarNombre();
-            this.luchadores.get(i).mostrarFaccion();
-            this.luchadores.get(i).mostrarStar();
+            System.out.println("------------------Luchador N°" + (i+1) + "------------------");
+            this.luchadores.get(i).mostrarLuchador();
+            
         }
     }
     

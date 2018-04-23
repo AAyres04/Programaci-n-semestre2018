@@ -12,13 +12,14 @@ import java.util.Random;
  * @author zeiruos
  */
 public class Luchador {
-    private int atk;
-    private int def;
-    private int spd;
-    private int hp;
+    private double atk;
+    private double def;
+    private double spd;
+    private double hp;
     private int star;
     private String nombre;
     private String faccion;
+    private ObjetoEquipable objetoLuchador;
     
     /* 
     * Si se desea probar los metodos en un Main, se recomienda usar el metodo
@@ -71,7 +72,7 @@ public class Luchador {
     }
     
     private String[] listaFaccion(){
-        String[] listaFaccion = {"Agua", "Tierra", "Fuego"};
+        String[] listaFaccion = {"Agua", "Planta", "Fuego"};
         return listaFaccion;
     }
     
@@ -82,10 +83,10 @@ public class Luchador {
     public void mostrarLuchador(){ // reemplazo a "toString()"
         System.out.println("Nombre: " + this.nombre + "\n" +
                 "Facción: " + this.faccion + "\n" +
-                "ATK: " + this.atk + " (base: " + this.atk/this.star + ")" + "\n" +
-                "DEF: " + this.def + " (base: " + this.def/this.star + ")" + "\n" +
-                "SPD: " + this.spd + " (base: " + this.spd/this.star + ")" + "\n" +
-                "HP: " + this.hp + " (base: " + this.hp/this.star + ")" + "\n" +
+                "ATK: " + this.atk + "\n" +
+                "DEF: " + this.def +  "\n" +
+                "SPD: " + this.spd + "\n" +
+                "HP: " + this.hp + "\n" +
                 "Estrella: " + this.star);
     }
     
@@ -119,35 +120,35 @@ public class Luchador {
     
     //TAREA N 2 - Todo lo que esta debajo fue añadido para la tarea 2
     
-    public int getAtk(){
+    public double getAtk(){
         return this.atk;
     }
     
-    public void setAtk(int atk){
+    public void setAtk(double atk){
         this.atk = atk;
     }
     
-    public int getDef(){
+    public double getDef(){
         return this.def;
     }
     
-    public void setDef(int def){
+    public void setDef(double def){
         this.def = def;
     }
     
-    public int getHp(){
+    public double getHp(){
         return this.hp;
     }
     
-    public void setHp(int hp){
+    public void setHp(double hp){
         this.hp = hp;
     }
     
-    public int getSpd(){
+    public double getSpd(){
         return this.spd;
     }
     
-    public void setSpd(int spd){
+    public void setSpd(double spd){
         this.spd = spd;
     }
     
@@ -157,6 +158,11 @@ public class Luchador {
     
     public String getFaccion(){
         return this.faccion;
+    }
+    
+    public void equiparObjeto(){
+        this.objetoLuchador = new ObjetoEquipable();
+        this.objetoLuchador.mejorarEstadistica(this.objetoLuchador.elegirEstadistica(), this);
     }
     
     

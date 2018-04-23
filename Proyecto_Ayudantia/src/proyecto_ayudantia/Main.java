@@ -16,7 +16,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        InventarioLuchadores i = new InventarioLuchadores();
+        /*InventarioLuchadores i = new InventarioLuchadores();
         System.out.println(i.cantidadLuchadores());
         i.elegirLuchador(0);
         for (int j = 0; j < 30 ; j++){
@@ -34,7 +34,11 @@ public class Main {
         
         ObjetoEquipable o = new ObjetoEquipable();
         System.out.println("-------------------------");
-        o.mostrarObjeto();
+        o.mostrarObjeto();*/
+        
+        Batalla batoru = new Batalla();
+        batoru.batallar();
+        
     }
     
     /*public void equiparObjeto(){
