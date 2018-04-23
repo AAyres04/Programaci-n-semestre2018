@@ -25,7 +25,7 @@ public class Batalla {
         */
         
         this.luchadoresActivos = new InventarioLuchadores();
-        randomLuchadores(numeroRandom(1,5));
+        randomLuchadores(numeroRandom(0,5));
         this.monstruoBatalla = new Monstruo();
         
     }
