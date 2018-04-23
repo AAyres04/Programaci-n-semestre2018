@@ -1,0 +1,59 @@
+Análisis sobre el diagrama de clases UML // Antonio Ayres
+
+===============================================
+
+Clases del paquete proyecto_ayudantia
+
+-Luchador
+-InvetarioLuchadores
+-ObjetoEquipable
+-InventarioObjetos
+-Monstruo
+-Dados
+-Batalla
+
+
+===============================================
+
+En esta etapa del desarrollo del proyecto, existen 2 asociaciones (tipos aun por definir) y una dependencia.
+
+Dependencias:
+
+-La clase "Monstruo" utiliza a la clase "ObjetoEquipable()" para generar un objeto dropeable y guardarlo en su inventario. Su existencia solo se conoce
+en el método "CrearObjetoDropeable()", ya que el monstruo en si no necesita "objetoEquipable" como un atributo que lo defina.
+
+-La clase "Batalla" utiliza a la clase "Dado" para efecetos de calculo especial. Su existencia solo se conoce en elmétodo
+"valorJuegoDados()", ya que la batalla solo necesita los resultados de este juego, y no le interesa que los dados en si sean parte de ella.
+
+-La clase "Batalla" utiliza a la clase "InventarioLuchadores" para usar una segunda lista en donde se ubican los luchadores oredenados por su atributo
+"spd". Se utiliza en los métodos de "batallar()", "ataqueLuchadores()" y "ataqueMonstruo()". Cabe destacar que esta relación no es por el atributo de
+"luchadoresActivos", puesto que se utiliza un segundo objetos con vida util en el metodo batallar y los ataques.
+
+-La clase "Main" utiliza a la clase "Batalla" para la ejecucion del programa, usando el metodo "batallar()"
+
+Asociaciones:
+
+-La clase "InventarioLuchadores" esta asociada con "Luchador", este ultimo sin conocer de la existencia de la otra clase
+(no lo utiliza en ningún atributo/método), mientras que InventarioLuchadores implementa un ArrayList de tipo Luchador llamado "luchadores". 
+En este problema, existirá 1 solo "InventarioLuchadores", el cual tendrá desde 1 hasta 25 elementos de la clase "Luchador".
+Esta asociación es una composicion, puesto que sin luchadores, el inventario pierde su objetivo.
+
+-La clase "InventarioObjetos" esta asociada con "ObjetoEquipable", este ultimo sin conocer de la existencia de la otra clase
+(no lo utiliza en ningún atributo/método). mientras que InventarioObjetos implementa un ArrayList de tipo ObjetoEquipable llamado "objetos". 
+En este problema, existirá 1 solo "InventarioObjetos", el cual tendrá desde 0 hasta 10 elementos de la clase "ObjetoEquipable".
+Esta asociación es una composicion, puesto que sin objetos, el inventario pierde su objetivo.
+
+-La clase "Luchador" esta asociada con "ObjetoEquipable" puesto que este puede equipar un objeto. Es una agregacion, debido a
+que el luchador puede seguir funcionando sin un objeto.
+
+-La clase "Monsturo" esta asociada con "InventarioObjetos" para guardar sus tres tipos de objetos dropeables (1 inventario a 1 monstruo. 
+Es una composición porque el monstruo, por definición del problema, siempre tiene que genera objetos dropeables, sin ellos se cortaria una de sus funciones.
+
+-La clase "Batalla" esta asociada con "Monstruo" para tener uno que participe en las batallas. Por lo anterior, es una composicion, ya que
+sin monstruo no hay batalla.
+
+-La clase "Batalla" esta asociada con "InventarioLuchadores" para definir los luchadores que participran en batalla (1 inventario en 1 batalla).
+Sin luchadores, no hay batalla que hacer, por lo cual es una composición entre el inventario y la batalla.
+
+===============================================
+

@@ -23,8 +23,8 @@ public class InventarioObjetos {
         return this.objetos;
     }
     
-    public void setObjetos(ArrayList<ObjetoEquipable> luchadores){
-        this.objetos = luchadores;
+    public void setObjetos(ArrayList<ObjetoEquipable> objetos){
+        this.objetos = objetos;
     }
     
     public void addObjeto(ObjetoEquipable objeto){
@@ -89,6 +89,5 @@ public class InventarioObjetos {
     public int cantidadObjetos(){
         return this.objetos.size();
     }
-    
     
 }
