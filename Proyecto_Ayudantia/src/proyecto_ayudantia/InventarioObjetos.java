@@ -11,12 +11,13 @@ import java.util.ArrayList;
  *
  * @author tonio
  */
-public class InventarioObjetos {
+public class InventarioObjetos extends Inventario {
     
     private ArrayList<ObjetoEquipable> objetos;
-    
+
     public InventarioObjetos(){
-        this.objetos = new ArrayList<>();
+        super();
+        this.objetos = this.elementos;
     }
     
     public ArrayList<ObjetoEquipable> getObjetos(){
@@ -28,19 +29,19 @@ public class InventarioObjetos {
     }
     
     public void addObjeto(ObjetoEquipable objeto){
-        if (cantidadObjetos() < 10){
+        if (cantidadElementos() < 10){
             this.objetos.add(objeto);
         } else {
             System.out.println("Maximo alcanzado");
         }
     }
     
-    public void rmObjeto(int posicion){
+    public void rmObjeto(int posicion){//1
         this.objetos.remove(posicion);
     }
     
     public ArrayList<ObjetoEquipable> filtrarObjetos(int opcion, int consulta){
-        ArrayList auxObjetos;
+        ArrayList<ObjetoEquipable> auxObjetos;
         System.out.println("=====Ordenando por Rango=====");
         auxObjetos = filtrarEstrella(consulta);
         return auxObjetos;
@@ -48,7 +49,7 @@ public class InventarioObjetos {
     
     private ArrayList<ObjetoEquipable> filtrarEstrella(int star){
         ArrayList<ObjetoEquipable> aux = new ArrayList<>();
-        for (int i = 0; i < cantidadObjetos(); i++){
+        for (int i = 0; i < cantidadElementos(); i++){
             if (this.objetos.get(i).getStar() == star){
                 aux.add(this.objetos.get(i));
             }
@@ -61,33 +62,6 @@ public class InventarioObjetos {
             System.out.println("-----------------");
             System.out.println(aux.get(i).getStar());
         }
-    }
-    
-    public void mostrarObjetos(){
-        for (int i = 0; i < cantidadObjetos(); i++){
-            System.out.println("------------------Objeto N°" + i+1 + "------------------");
-            this.objetos.get(i).mostrarNombre();
-            this.objetos.get(i).mostrarMultiplicador();
-            this.objetos.get(i).mostrarStar();
-        }
-    }
-    
-    public void elegirObjeto(int index){
-        String aviso = "Objeto fuera de rango";
-        if (validarIndex(index)){
-            System.out.println("------------------Objeto N°" + index+1 + "------------------");
-            this.objetos.get(index).mostrarObjeto();
-        } else {
-            System.out.println(aviso);
-        }
-    }
-    
-    private boolean validarIndex(int index){ //en caso de usarlo en otro método
-        return index > 0 && index < cantidadObjetos();
-    }
-    
-    public int cantidadObjetos(){
-        return this.objetos.size();
     }
     
 }

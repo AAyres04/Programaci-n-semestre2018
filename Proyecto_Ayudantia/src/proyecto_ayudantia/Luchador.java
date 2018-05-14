@@ -11,14 +11,9 @@ import java.util.Random;
  *
  * @author zeiruos
  */
-public class Luchador {
-    private double atk;
-    private double def;
-    private double spd;
-    private double hp;
+public class Luchador extends Entidad{
     private int star;
     private String nombre;
-    private String faccion;
     private ObjetoEquipable objetoLuchador;
     
     /* 
@@ -27,26 +22,23 @@ public class Luchador {
     */
     
     public Luchador(){
+        this.hp = 0;
+        this.atk = 0;
+        this.def = 0;
+        this.spd = 0;
+        this.faccion = "";
+        this.nombre = "";
+        crearLuchador();
+    }
+    
+    private void crearLuchador(){
         this.star = generarStar();
-        this.atk = generarBase(20, 70, this.star);
-        this.def = generarBase(5, 25, this.star);
-        this.spd = generarBase(10, 100, this.star);
-        this.hp = generarBase(200, 500, this.star);
+        this.atk = generarBase(20, 70)*this.star;
+        this.def = generarBase(5, 25)*this.star;
+        this.spd = generarBase(10, 100)*this.star;
+        this.hp = generarBase(200, 500)*this.star;
         this.nombre = randomString(listaNombre());
         this.faccion = randomString(listaFaccion());
-    }
-    
-    private int numeroRandom(int rangoIni, int rangoFin){
-        Random random = new Random();
-        int numero;
-        do{
-            numero = random.nextInt(rangoFin+1);
-        }while(numero<rangoIni);
-        return numero;
-    }
-    
-    private int generarBase(int rangoIni, int rangoFin, int star){
-        return numeroRandom(rangoIni, rangoFin)*star;
     }
     
     private int generarStar(){
@@ -71,93 +63,16 @@ public class Luchador {
         return listaNombre;
     }
     
-    private String[] listaFaccion(){
-        String[] listaFaccion = {"Agua", "Planta", "Fuego"};
-        return listaFaccion;
-    }
-    
-    private String randomString(String[] lista){//Random String a partir de una array
-        return lista[numeroRandom(0, lista.length-1)];
-    }
-    
-    public void mostrarLuchador(){ // reemplazo a "toString()"
-        System.out.println("Nombre: " + this.nombre + "\n" +
-                "Facción: " + this.faccion + "\n" +
-                "ATK: " + this.atk + "\n" +
-                "DEF: " + this.def +  "\n" +
-                "SPD: " + this.spd + "\n" +
-                "HP: " + this.hp + "\n" +
-                "Estrella: " + this.star);
-    }
-    
-    public void mostrarAtk(){
-        System.out.println(this.atk);
-    }
-    
-    public void mostrarDef(){
-        System.out.println(this.def);
-    }
-    
-    public void mostrarSpd(){
-        System.out.println(this.spd);
-    }
-    
-    public void mostrarHp(){
-        System.out.println(this.hp);
-    }
-    
-    public void mostrarStar(){
-        System.out.println(this.star);
-    }
-    
-    public void mostrarNombre(){
-        System.out.println(this.nombre);
-    }
-    
-    public void mostrarFaccion(){
-        System.out.println(this.faccion);
-    }
-    
-    //TAREA N 2 - Todo lo que esta debajo fue añadido para la tarea 2
-    
-    public double getAtk(){
-        return this.atk;
-    }
-    
-    public void setAtk(double atk){
-        this.atk = atk;
-    }
-    
-    public double getDef(){
-        return this.def;
-    }
-    
-    public void setDef(double def){
-        this.def = def;
-    }
-    
-    public double getHp(){
-        return this.hp;
-    }
-    
-    public void setHp(double hp){
-        this.hp = hp;
-    }
-    
-    public double getSpd(){
-        return this.spd;
-    }
-    
-    public void setSpd(double spd){
-        this.spd = spd;
+    public double getStar(){
+        return this.star;
     }
     
     public String getNombre(){
         return this.nombre;
     }
     
-    public String getFaccion(){
-        return this.faccion;
+    public void setNombre(String nombre){
+        this.nombre = nombre;
     }
     
     public void equiparObjeto(){
@@ -165,5 +80,15 @@ public class Luchador {
         this.objetoLuchador.mejorarEstadistica(this.objetoLuchador.elegirEstadistica(), this);
     }
     
+    @Override
+    public String toString(){
+        return "Nombre: " + this.nombre + "\n" +
+                "Facción: " + this.faccion + "\n" +
+                "ATK: " + this.atk + "\n" +
+                "DEF: " + this.def +  "\n" +
+                "SPD: " + this.spd + "\n" +
+                "HP: " + this.hp + "\n" +
+                "Estrella: " + this.star;
+    }
     
 }

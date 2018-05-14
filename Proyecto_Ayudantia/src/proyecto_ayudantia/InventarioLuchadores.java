@@ -11,12 +11,13 @@ import java.util.ArrayList;
  *
  * @author arturoayres
  */
-public class InventarioLuchadores {
+public class InventarioLuchadores extends Inventario{
+    
     private ArrayList<Luchador> luchadores;
     
     public InventarioLuchadores(){
-        this.luchadores = new ArrayList<>();
-        addLuchador(new Luchador());// LUCHADOR DEFAULT
+        super();
+        this.luchadores = this.elementos;
     }
     
     public ArrayList<Luchador> getLuchadores(){
@@ -77,32 +78,10 @@ public class InventarioLuchadores {
     public void mostrarFiltrado(ArrayList<Luchador> aux){
         for (int i = 0; i< aux.size(); i++){
             System.out.println("-----------------");
-            aux.get(i).mostrarNombre();
-            aux.get(i).mostrarFaccion();
-            aux.get(i).mostrarStar();
+            System.out.println("Nombre: " + aux.get(i).getNombre());
+            System.out.println("Facción: " + aux.get(i).getFaccion());
+            System.out.println("Estrella: " + aux.get(i).getStar());
         }
-    }
-    
-    public void mostrarLuchadores(){
-        for (int i = 0; i < cantidadLuchadores(); i++){
-            System.out.println("------------------Luchador N°" + (i+1) + "------------------");
-            this.luchadores.get(i).mostrarLuchador();
-            
-        }
-    }
-    
-    public void elegirLuchador(int index){
-        String aviso = "Luchador fuera de rango";
-        if (validarIndex(index)){
-            System.out.println("------------------Luchador N°" + index+1 + "------------------");
-            this.luchadores.get(index).mostrarLuchador();
-        } else {
-            System.out.println(aviso);
-        }
-    }
-    
-    private boolean validarIndex(int index){ //en caso de usarlo en otro método
-        return index > 0 && index < cantidadLuchadores();
     }
     
     public int cantidadLuchadores(){
