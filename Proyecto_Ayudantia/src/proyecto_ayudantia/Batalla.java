@@ -209,7 +209,6 @@ public class Batalla {
             if (this.monstruoBatalla.getSpd() > luchadores.getLuchadores().get(i).getSpd()  && !ataqueRealizado){
                 //si el luchador tiene la misma velocidad que el monstruo, se le dara prioridad al jugador
                 if (this.monstruoBatalla.getHp() > 0){   
-                    System.out.println("a");
                     ataqueMonstruo(luchadores);
                 } else {
                     break;
