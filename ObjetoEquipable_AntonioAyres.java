@@ -81,12 +81,6 @@ public class ObjetoEquipable {
         return lista[numeroRandom(0, lista.length-1)];
     }
     
-    public void mostrarObjeto(){
-        System.out.println("Nombre del Objeto: " + this.nombreObjeto + "\n" +
-                "Stat: " + this.multiplicador + " (base: " + this.multiplicador/this.star + ")" + "\n" +
-                "Estrellas: " + this.star);
-    }
-    
     public int elegirEstadistica(){
         return numeroRandom(1, 4);
     }
@@ -107,15 +101,10 @@ public class ObjetoEquipable {
         }
     }
     
-    public void mostrarMultiplicador(){
-        System.out.println("Multiplicador: " + this.multiplicador);
-    }
-    
-    public void mostrarNombre(){
-        System.out.println("Nombre: " + this.nombreObjeto);
-    }
-    
-    public void mostrarStar(){
-        System.out.println("Estrellas: " + this.star);
+    @Override
+    public String toString(){
+        return "Nombre del Objeto: " + this.nombreObjeto + "\n" +
+                "Stat: " + this.multiplicador + " (base: " + this.multiplicador/this.star + ")" + "\n" +
+                "Estrellas: " + this.star;
     }
 }

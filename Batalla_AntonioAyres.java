@@ -25,9 +25,8 @@ public class Batalla {
         */
         
         this.luchadoresActivos = new InventarioLuchadores();
-        randomLuchadores(numeroRandom(0,5));
+        randomLuchadores(numeroRandom(1,6));
         this.monstruoBatalla = new Monstruo();
-        
     }
     
     private int numeroRandom(int rangoIni, int rangoFin){
@@ -62,7 +61,6 @@ public class Batalla {
     
     public void buffInicial(int valor){
         if (valor > 0){
-            System.out.println("pase por aqui 1");
             for (int i = 0; i < this.luchadoresActivos.getLuchadores().size(); i++){
                 this.luchadoresActivos.getLuchadores().get(i).setAtk(this.luchadoresActivos.getLuchadores().get(i).getAtk()*valor);
                 this.luchadoresActivos.getLuchadores().get(i).setDef(this.luchadoresActivos.getLuchadores().get(i).getDef()*valor);
@@ -70,7 +68,6 @@ public class Batalla {
                 this.luchadoresActivos.getLuchadores().get(i).setHp(this.luchadoresActivos.getLuchadores().get(i).getHp()*valor);
             }
         } else if (valor < 0){
-            System.out.println("pase por aqui 2");
             this.monstruoBatalla.setAtk(this.monstruoBatalla.getAtk()*(-valor));
             this.monstruoBatalla.setDef(this.monstruoBatalla.getDef()*(-valor));
             this.monstruoBatalla.setSpd(this.monstruoBatalla.getSpd()*(-valor));
@@ -84,28 +81,26 @@ public class Batalla {
         buffInicial(valorJuegoDados());
         InventarioLuchadores ordenBatalla = ordenBatalla();
         System.out.println("STATS ANTES DE LA BATALLA");
-        ordenBatalla.mostrarLuchadores();
+        ordenBatalla.mostrarElementos("Luchadores");
         System.out.println(this.monstruoBatalla);
         System.out.println("BATTLE START!");
+        int i = 0;
         do{
-            System.out.println("~~~~~~~Turno de los luchadores!~~~~~~~");
-            ataqueLuchadores(ordenBatalla);
+            System.out.println("~~~~~~~Turno " + (i+1) + "~~~~~~~");
+            interaccionEntidades(ordenBatalla);
             System.out.println("~~~~~~~Fin del ataque~~~~~~~" + "\n");
+            i++;
             if (this.monstruoBatalla.getHp() <= 0){
                 System.out.println("LOS LUCHADORES GANAN!");
                 System.out.println("OBJETO DROPEADO:" );
-                this.monstruoBatalla.asignarDrop().mostrarObjeto();
-                break;
+                System.out.println(this.monstruoBatalla.asignarDrop());
             }
-            System.out.println("~~~~~~~Turno del monstruo!~~~~~~~");
-            ataqueMonstruo(ordenBatalla);
-            System.out.println("~~~~~~~Fin del ataque~~~~~~~" + "\n");
             if (checkHpLuchadores(ordenBatalla)){
                 System.out.println("LOS LUCHADORES PIERDEN");
                 break;
             }
         }while (this.monstruoBatalla.getHp() > 0);
-        ordenBatalla.mostrarLuchadores();
+        ordenBatalla.mostrarElementos("Luchadores");
         System.out.println(this.monstruoBatalla);
     }
     
@@ -124,84 +119,31 @@ public class Batalla {
         return ordenBatalla;
     }
     
-    public void ataqueLuchadores(InventarioLuchadores luchadores){
+    public void ataqueLuchador(Luchador atacante){
         double dmg;
-        for (int i = 0; i < luchadores.cantidadLuchadores(); i++){
-            System.out.println("===========================");
-            
-            if (luchadores.getLuchadores().get(i).getHp() <= 0){
-                System.out.println(luchadores.getLuchadores().get(i).getNombre() + " esta muerto. No puede atacar.");
-                continue;
-            }
-            
-            
-            if(this.monstruoBatalla.getFaccion().equals("Agua") && luchadores.getLuchadores().get(i).getFaccion().equals("Fuego")){
-                dmg = luchadores.getLuchadores().get(i).getAtk()*0.75 - this.monstruoBatalla.getDef();
-                if (dmg < 0) dmg = 0;
-                this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                System.out.println("El luchador " + luchadores.getLuchadores().get(i).getNombre() + " atacó al monstruo, con " + dmg + " de daño.  No es muy eficaz.");
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Agua") && luchadores.getLuchadores().get(i).getFaccion().equals("Planta")){
-                dmg = luchadores.getLuchadores().get(i).getAtk()*1.5 - this.monstruoBatalla.getDef();
-                if (dmg < 0) dmg = 0;
-                this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                System.out.println("El luchador " + luchadores.getLuchadores().get(i).getNombre() + " atacó al monstruo, con " + dmg + " de daño. Es supereficaz!");
-            
-            } else if (this.monstruoBatalla.getFaccion().equals("Agua") && luchadores.getLuchadores().get(i).getFaccion().equals("Agua")){
-                dmg = luchadores.getLuchadores().get(i).getAtk() - this.monstruoBatalla.getDef();
-                if (dmg < 0) dmg = 0;
-                this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                System.out.println("El luchador " + luchadores.getLuchadores().get(i).getNombre() + " atacó al monstruo, con " + dmg + " de daño.");
-            
-            } else if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchadores.getLuchadores().get(i).getFaccion().equals("Fuego")){
-                dmg = luchadores.getLuchadores().get(i).getAtk() - this.monstruoBatalla.getDef();
-                if (dmg < 0) dmg = 0;
-                this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                System.out.println("El luchador " + luchadores.getLuchadores().get(i).getNombre() + " atacó al monstruo, con " + dmg + " de daño.");
-            
-            } else if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchadores.getLuchadores().get(i).getFaccion().equals("Planta")){
-                dmg = luchadores.getLuchadores().get(i).getAtk()*0.75 - this.monstruoBatalla.getDef();
-                if (dmg < 0) dmg = 0;
-                this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                System.out.println("El luchador " + luchadores.getLuchadores().get(i).getNombre() + " atacó al monstruo, con " + dmg + " de daño. No es muy eficaz.");
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchadores.getLuchadores().get(i).getFaccion().equals("Agua")){
-                dmg = luchadores.getLuchadores().get(i).getAtk()*1.5 - this.monstruoBatalla.getDef();
-                if (dmg < 0) dmg = 0;
-                this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                System.out.println("El luchador " + luchadores.getLuchadores().get(i).getNombre() + " atacó al monstruo, con " + dmg + " de daño. Es supereficaz!");
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Planta") && luchadores.getLuchadores().get(i).getFaccion().equals("Fuego")){
-                dmg = luchadores.getLuchadores().get(i).getAtk()*1.5 - this.monstruoBatalla.getDef();
-                if (dmg < 0) dmg = 0;
-                this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                System.out.println("El luchador " + luchadores.getLuchadores().get(i).getNombre() + " atacó al monstruo, con " + dmg + " de daño. Es supereficaz!");
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Planta") && luchadores.getLuchadores().get(i).getFaccion().equals("Planta")){
-                dmg = luchadores.getLuchadores().get(i).getAtk() - this.monstruoBatalla.getDef();
-                if (dmg < 0) dmg = 0;
-                this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                System.out.println("El luchador " + luchadores.getLuchadores().get(i).getNombre() + " atacó al monstruo, con " + dmg + " de daño.");
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Planta") && luchadores.getLuchadores().get(i).getFaccion().equals("Agua")){
-                dmg = luchadores.getLuchadores().get(i).getAtk()*0.75 - this.monstruoBatalla.getDef();
-                if (dmg < 0) dmg = 0;
-                this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - (luchadores.getLuchadores().get(i).getAtk()*0.75 - this.monstruoBatalla.getDef()));
-                System.out.println("El luchador " + luchadores.getLuchadores().get(i).getNombre() + " atacó al monstruo, con " + dmg + " de daño. No es muy eficaz.");
-
-            }
-            
-            if (this.monstruoBatalla.getHp() <= 0){
-                this.monstruoBatalla.setHp(0);
-                break;
-            }
+        
+        if(compararFaccionLuchador(atacante).equals("Ventaja")){
+            dmg = atacante.getAtk()*1.5 - this.monstruoBatalla.getDef();
+            if (dmg < 0) dmg = 0;
+            this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
+            System.out.println("El luchador " + atacante.getNombre() + " atacó al monstruo, con " + dmg + " de daño. Es supereficaz!");
+        }else if(compararFaccionLuchador(atacante).equals("Desventaja")){
+            dmg = atacante.getAtk()*0.75 - this.monstruoBatalla.getDef();
+            if (dmg < 0) dmg = 0;
+            this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
+            System.out.println("El luchador " + atacante.getNombre() + " atacó al monstruo, con " + dmg + " de daño.  No es muy eficaz.");
+        }else if(compararFaccionLuchador(atacante).equals("Neutral")){
+            dmg = atacante.getAtk() - this.monstruoBatalla.getDef();
+            if (dmg < 0) dmg = 0;
+            this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
+            System.out.println("El luchador " + atacante.getNombre() + " atacó al monstruo, con " + dmg + " de daño.");
         }
-        
-        
+                    
     }
     
     public void ataqueMonstruo(InventarioLuchadores luchadores){
         double dmg;
+        
         for (int i = 0; i < luchadores.cantidadLuchadores(); i++){
             System.out.println("===========================");
             
@@ -210,64 +152,90 @@ public class Batalla {
                 continue;
             }
             
-            if(this.monstruoBatalla.getFaccion().equals("Agua") && luchadores.getLuchadores().get(i).getFaccion().equals("Fuego")){
+            if(compararFaccionMonstruo(luchadores.getLuchadores().get(i)).equals("Ventaja")){
                 dmg = this.monstruoBatalla.getAtk()*1.5 - luchadores.getLuchadores().get(i).getDef();
                 if (dmg < 0) dmg = 0;
                 luchadores.getLuchadores().get(i).setHp(luchadores.getLuchadores().get(i).getHp() - dmg);
                 System.out.println("El monstruo atacó a " + luchadores.getLuchadores().get(i).getNombre() + ", con " + dmg + " de daño. Es supereficaz!" );
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Agua") && luchadores.getLuchadores().get(i).getFaccion().equals("Planta")){
+            } else if (compararFaccionMonstruo(luchadores.getLuchadores().get(i)).equals("Desventaja")) {
                 dmg = this.monstruoBatalla.getAtk()*0.75 - luchadores.getLuchadores().get(i).getDef();
                 if (dmg < 0) dmg = 0;
                 luchadores.getLuchadores().get(i).setHp(luchadores.getLuchadores().get(i).getHp() - dmg);
                 System.out.println("El monstruo atacó a " + luchadores.getLuchadores().get(i).getNombre() + ", con " + dmg + " de daño. No es muy eficaz." );
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Agua") && luchadores.getLuchadores().get(i).getFaccion().equals("Agua")){
+            } else if (compararFaccionMonstruo(luchadores.getLuchadores().get(i)).equals("Neutral")){
                 dmg = this.monstruoBatalla.getAtk() - luchadores.getLuchadores().get(i).getDef();
                 if (dmg < 0) dmg = 0;
                 luchadores.getLuchadores().get(i).setHp(luchadores.getLuchadores().get(i).getHp() - dmg);
                 System.out.println("El monstruo atacó a " + luchadores.getLuchadores().get(i).getNombre() + ", con " + dmg + " de daño." );
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchadores.getLuchadores().get(i).getFaccion().equals("Fuego")){
-                dmg = this.monstruoBatalla.getAtk() - luchadores.getLuchadores().get(i).getDef();
-                if (dmg < 0) dmg = 0;
-                luchadores.getLuchadores().get(i).setHp(luchadores.getLuchadores().get(i).getHp() - dmg);
-                System.out.println("El monstruo atacó a " + luchadores.getLuchadores().get(i).getNombre() + ", con " + dmg + " de daño." );
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchadores.getLuchadores().get(i).getFaccion().equals("Planta")){
-                dmg = this.monstruoBatalla.getAtk()*1.5 - luchadores.getLuchadores().get(i).getDef();
-                if (dmg < 0) dmg = 0;
-                luchadores.getLuchadores().get(i).setHp(luchadores.getLuchadores().get(i).getHp() - dmg);
-                System.out.println("El monstruo atacó a " + luchadores.getLuchadores().get(i).getNombre() + ", con " + dmg + " de daño. Es supereficaz!" );
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchadores.getLuchadores().get(i).getFaccion().equals("Agua")){
-                dmg = this.monstruoBatalla.getAtk()*0.75 - luchadores.getLuchadores().get(i).getDef();
-                if (dmg < 0) dmg = 0;
-                luchadores.getLuchadores().get(i).setHp(luchadores.getLuchadores().get(i).getHp() - dmg);
-                System.out.println("El monstruo atacó a " + luchadores.getLuchadores().get(i).getNombre() + ", con " + dmg + " de daño.  No es muy eficaz." );
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Planta") && luchadores.getLuchadores().get(i).getFaccion().equals("Fuego")){
-                dmg = this.monstruoBatalla.getAtk()*0.75 - luchadores.getLuchadores().get(i).getDef();
-                if (dmg < 0) dmg = 0;
-                luchadores.getLuchadores().get(i).setHp(luchadores.getLuchadores().get(i).getHp() - dmg);
-                System.out.println("El monstruo atacó a " + luchadores.getLuchadores().get(i).getNombre() + ", con " + dmg + " de daño. No es muy eficaz." );
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Planta") && luchadores.getLuchadores().get(i).getFaccion().equals("Planta")){
-                dmg = this.monstruoBatalla.getAtk() - luchadores.getLuchadores().get(i).getDef();
-                if (dmg < 0) dmg = 0;
-                luchadores.getLuchadores().get(i).setHp(luchadores.getLuchadores().get(i).getHp() - dmg);
-                System.out.println("El monstruo atacó a " + luchadores.getLuchadores().get(i).getNombre() + ", con " + dmg + " de daño." );
-                
-            } else if (this.monstruoBatalla.getFaccion().equals("Planta") && luchadores.getLuchadores().get(i).getFaccion().equals("Agua")){
-                dmg = this.monstruoBatalla.getAtk()*1.5 - luchadores.getLuchadores().get(i).getDef();
-                if (dmg < 0) dmg = 0;
-                luchadores.getLuchadores().get(i).setHp(luchadores.getLuchadores().get(i).getHp() - dmg);
-                System.out.println("El monstruo atacó a " + luchadores.getLuchadores().get(i).getNombre() + ", con " + dmg + " de daño. Es supereficaz!" );
             }
             
             if (luchadores.getLuchadores().get(i).getHp() < 0){
                 luchadores.getLuchadores().get(i).setHp(0);
             }
+        }
+    }
+    
+    public String compararFaccionMonstruo(Luchador luchador){
+        if (this.monstruoBatalla.getFaccion().equals("Agua") && luchador.getFaccion().equals("Fuego")) return "Ventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Agua") && luchador.getFaccion().equals("Planta")) return "Desventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Agua") && luchador.getFaccion().equals("Agua")) return "Neutral";
+        if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchador.getFaccion().equals("Fuego")) return "Neutral";
+        if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchador.getFaccion().equals("Planta")) return "Ventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchador.getFaccion().equals("Agua")) return "Desventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Planta") && luchador.getFaccion().equals("Fuego")) return "Desventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Planta") && luchador.getFaccion().equals("Fuego")) return "Neutral";
+        if (this.monstruoBatalla.getFaccion().equals("Planta") && luchador.getFaccion().equals("Fuego")) return "Ventaja";
+        return "Neutral";
+    }
+    
+    public String compararFaccionLuchador(Luchador luchador){
+        if (this.monstruoBatalla.getFaccion().equals("Agua") && luchador.getFaccion().equals("Fuego")) return "Desventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Agua") && luchador.getFaccion().equals("Planta")) return "Ventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Agua") && luchador.getFaccion().equals("Agua")) return "Neutral";
+        if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchador.getFaccion().equals("Fuego")) return "Neutral";
+        if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchador.getFaccion().equals("Planta")) return "Desventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Fuego") && luchador.getFaccion().equals("Agua")) return "Ventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Planta") && luchador.getFaccion().equals("Fuego")) return "Ventaja";
+        if (this.monstruoBatalla.getFaccion().equals("Planta") && luchador.getFaccion().equals("Fuego")) return "Neutral";
+        if (this.monstruoBatalla.getFaccion().equals("Planta") && luchador.getFaccion().equals("Fuego")) return "Desventaja";
+        return "Neutral";
+    }
+    
+    public void interaccionEntidades(InventarioLuchadores luchadores){
+        boolean ataqueRealizado = false;
+        int i = 0;
+        
+        while (i < luchadores.cantidadLuchadores()){
+            if (this.monstruoBatalla.getSpd() > luchadores.getLuchadores().get(i).getSpd()  && !ataqueRealizado){
+                //si el luchador tiene la misma velocidad que el monstruo, se le dara prioridad al jugador
+                if (this.monstruoBatalla.getHp() > 0){   
+                    ataqueMonstruo(luchadores);
+                } else {
+                    break;
+                }
+                ataqueRealizado = true;
+                if(checkHpLuchadores(luchadores)){
+                    break;
+                }
+            }else{
+                System.out.println("===========================");
+                Luchador atacante = luchadores.getLuchadores().get(i);
+                if (atacante.getHp() <= 0){
+                    System.out.println(atacante.getNombre() + " esta muerto. No puede atacar.");
+                    i = i+1;
+                }else{
+                    ataqueLuchador(atacante);
+                    if (this.monstruoBatalla.getHp() <= 0){
+                        this.monstruoBatalla.setHp(0);
+                        break;
+                    }
+                    i = i +1;
+                }
+            }   
+        }
+        
+        if (!ataqueRealizado && this.monstruoBatalla.getHp() > 0){
+            ataqueMonstruo(luchadores);
         }
     }
     
