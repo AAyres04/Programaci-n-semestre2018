@@ -76,19 +76,29 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == this.summon){
-            /*try{
+            int numeroIngresado;
+            if(inputIsInt()){
                 
-            }catch(){
+                numeroIngresado = Integer.parseInt(this.numeroSummons.getText());
+                if(numeroIngresado > 0 && numeroIngresado <6){
+                    for(int i=0; i<this.luchadoresInvocados.cantidadElementos();i++){
+                        this.luchadoresInvocados.rmLuchador(i);
+                    }
+            
+                    for(int i = 0; i<numeroIngresado; i++){
+                        this.luchadoresInvocados.addLuchador(new Luchador());
+                    }
+                    this.infoSummon.setText(this.luchadoresInvocados.mostrarElementos("Luchador"));
+                }else if(numeroIngresado >= 6){
+                    JOptionPane.showMessageDialog(this, "El numero ingresado es mayor al limite especificado (1 a 6).");
+                }else if(numeroIngresado <= 0){
+                    JOptionPane.showMessageDialog(this, "El numero ingresado es menor al limite especificado (1 a 6).");
+                }
                 
-            }*/
-            for(int i=0; i<this.luchadoresInvocados.cantidadElementos();i++){
-                this.luchadoresInvocados.rmLuchador(i);
             }
             
-            for(int i = 0; i<Integer.parseInt(this.numeroSummons.getText()); i++){
-                this.luchadoresInvocados.addLuchador(new Luchador());
-            }
-            this.infoSummon.setText(this.luchadoresInvocados.mostrarElementos("Luchador"));
+            
+            
             
         } else if (ae.getSource() == this.batalla){
             if(this.luchadoresInvocados.cantidadLuchadores() > 1){
@@ -99,4 +109,17 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         }
     }
     
+    private boolean inputIsInt(){
+        //condiciones que gatillan la excepción: Que en el textfield se coloque un valor que no sea numerico
+        //medidas paliativas de la excepción: Cubre todos los intentos de igresar un caracter que no sea numerico.
+        //justificacion del tipo de la excepcion usada: En la documentacion de la clase Integer, aparece dicha excepción.
+        
+        try{
+            Integer.parseInt(this.numeroSummons.getText());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Ingreso un valor que no es numerico. Vuelva a intentarlo" + "\n" + e);
+            return false;
+        }
+        return true;
+    }
 }

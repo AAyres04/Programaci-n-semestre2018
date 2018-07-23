@@ -72,7 +72,7 @@ public class Batalla {
         d2.setCantidadCaras(6);
         d1.arrojarDado();
         d2.arrojarDado();
-        this.resultados += ("El valor del juego de dados es: " + (d1.getResult() - d2.getResult()) + "\n" +
+        this.resultados += "\n" + ("El valor del juego de dados es: " + (d1.getResult() - d2.getResult()) + "\n" +
                 "Dado1 = " + d1.getResult() + " Dado2 = "  + d2.getResult());
         return (d1.getResult() - d2.getResult());
     }
@@ -98,32 +98,32 @@ public class Batalla {
     public void batallar(){
         buffInicial(valorJuegoDados());
         InventarioLuchadores ordenBatalla = ordenBatalla();
-        this.resultados +=("STATS ANTES DE LA BATALLA");
+        this.resultados += "\n" +("STATS ANTES DE LA BATALLA");
         ordenBatalla.mostrarElementos("Luchadores");
-        this.resultados +=(this.monstruoBatalla);
-        this.resultados +=("BATTLE START!");
+        this.resultados += "\n" +(this.monstruoBatalla);
+        this.resultados += "\n" +("BATTLE START!");
         int i = 0;
         int random = numeroRandom(3,6);
         int contadorFuria = random;
         do{
-            this.resultados +=("~~~~~~~Turno " + (i+1) + "~~~~~~~");
+            this.resultados += "\n" +("~~~~~~~Turno " + (i+1) + "~~~~~~~");
             interaccionEntidades(ordenBatalla, random, contadorFuria);
-            this.resultados +=("~~~~~~~Fin del ataque~~~~~~~" + "\n");
+            this.resultados += "\n" +("~~~~~~~Fin del ataque~~~~~~~" + "\n");
             i++;
             contadorFuria--;
             if (contadorFuria < 0) contadorFuria = random;
             if (this.monstruoBatalla.getHp() <= 0){
-                this.resultados +=("LOS LUCHADORES GANAN!");
-                this.resultados +=("OBJETO DROPEADO:" );
-                this.resultados +=(this.monstruoBatalla.asignarDrop());
+                this.resultados += "\n" +("LOS LUCHADORES GANAN!");
+                this.resultados += "\n" +("OBJETO DROPEADO:" );
+                this.resultados += "\n" +(this.monstruoBatalla.asignarDrop());
             }
             if (checkHpLuchadores(ordenBatalla)){
-                this.resultados +=("LOS LUCHADORES PIERDEN");
+                this.resultados += "\n" +("LOS LUCHADORES PIERDEN");
                 break;
             }
         }while (this.monstruoBatalla.getHp() > 0);
-        this.resultados += ordenBatalla.mostrarElementos("Luchadores");
-        this.resultados +=(this.monstruoBatalla);
+        this.resultados += "\n" + ordenBatalla.mostrarElementos("Luchadores");
+        this.resultados += "\n" +(this.monstruoBatalla);
     }
     
     public InventarioLuchadores ordenBatalla(){
@@ -149,19 +149,19 @@ public class Batalla {
                 dmg = atacante.getAtk()*1.5 - this.monstruoBatalla.getDef();
                 if (dmg < 0) dmg = 0;
                 this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                this.resultados +=("El luchador " + atacante.getNombre() + " atacó al monstruo, con " + dmg + " de daño. Es supereficaz!");
+                this.resultados += "\n" +("El luchador " + atacante.getNombre() + " atacó al monstruo, con " + dmg + " de daño. Es supereficaz!");
                 break;
             case "Desventaja":
                 dmg = atacante.getAtk()*0.75 - this.monstruoBatalla.getDef();
                 if (dmg < 0) dmg = 0;
                 this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                this.resultados +=("El luchador " + atacante.getNombre() + " atacó al monstruo, con " + dmg + " de daño.  No es muy eficaz.");
+                this.resultados += "\n" +("El luchador " + atacante.getNombre() + " atacó al monstruo, con " + dmg + " de daño.  No es muy eficaz.");
                 break;
             case "Neutral":
                 dmg = atacante.getAtk() - this.monstruoBatalla.getDef();
                 if (dmg < 0) dmg = 0;
                 this.monstruoBatalla.setHp(this.monstruoBatalla.getHp() - dmg);
-                this.resultados +=("El luchador " + atacante.getNombre() + " atacó al monstruo, con " + dmg + " de daño.");
+                this.resultados += "\n" +("El luchador " + atacante.getNombre() + " atacó al monstruo, con " + dmg + " de daño.");
                 break;
             default:
                 break;
@@ -174,10 +174,10 @@ public class Batalla {
         int random = numeroRandom(0,luchadores.getLuchadores().size()-1);
 
        
-        this.resultados +=("===========================");
+        this.resultados += "\n" +("===========================");
             
         if (luchadores.getLuchadores().get(random).getHp() <= 0){
-            this.resultados +=("El monstruo intento atacar a " + luchadores.getLuchadores().get(random).getNombre() + " pero esta muerto!");
+            this.resultados += "\n" +("El monstruo intento atacar a " + luchadores.getLuchadores().get(random).getNombre() + " pero esta muerto!");
             
         }else{
             
@@ -186,19 +186,19 @@ public class Batalla {
                     dmg = this.monstruoBatalla.getAtk()*1.5 - luchadores.getLuchadores().get(random).getDef();
                     if (dmg < 0) dmg = 0;
                     luchadores.getLuchadores().get(random).setHp(luchadores.getLuchadores().get(random).getHp() - dmg);
-                    this.resultados +=("El monstruo atacó a " + luchadores.getLuchadores().get(random).getNombre() + ", con " + dmg + " de daño. Es supereficaz!" );
+                    this.resultados += "\n" +("El monstruo atacó a " + luchadores.getLuchadores().get(random).getNombre() + ", con " + dmg + " de daño. Es supereficaz!" );
                     break;
                 case "Desventaja":
                     dmg = this.monstruoBatalla.getAtk()*0.75 - luchadores.getLuchadores().get(random).getDef();
                     if (dmg < 0) dmg = 0;
                     luchadores.getLuchadores().get(random).setHp(luchadores.getLuchadores().get(random).getHp() - dmg);
-                    this.resultados +=("El monstruo atacó a " + luchadores.getLuchadores().get(random).getNombre() + ", con " + dmg + " de daño. No es muy eficaz." );
+                    this.resultados += "\n" +("El monstruo atacó a " + luchadores.getLuchadores().get(random).getNombre() + ", con " + dmg + " de daño. No es muy eficaz." );
                     break;
                 case "Neutral":
                     dmg = this.monstruoBatalla.getAtk() - luchadores.getLuchadores().get(random).getDef();
                     if (dmg < 0) dmg = 0;
                     luchadores.getLuchadores().get(random).setHp(luchadores.getLuchadores().get(random).getHp() - dmg);
-                    this.resultados +=("El monstruo atacó a " + luchadores.getLuchadores().get(random).getNombre() + ", con " + dmg + " de daño." );
+                    this.resultados += "\n" +("El monstruo atacó a " + luchadores.getLuchadores().get(random).getNombre() + ", con " + dmg + " de daño." );
                     break;
                 default:
                     break;
@@ -242,12 +242,12 @@ public class Batalla {
         int i = 0;
         
         if (contadorFuria > 0){
-            this.resultados +=("##################################" + "\n" +
+            this.resultados += "\n" +("##################################" + "\n" +
                             "Quedan " + contadorFuria + " turno(s) para el Ataque especial del monstruo!" + "\n" +
                             "(El monstruo atacará " + random + " veces entre todos los luchadores)." + "\n" +
                             "##################################");
         } else {
-            this.resultados +=("##################################" + "\n" +
+            this.resultados += "\n" +("##################################" + "\n" +
                     "El monstruo atacara con furia!" + "\n" +
                     "##################################");
         }
@@ -271,10 +271,10 @@ public class Batalla {
                     break;
                 }
             }else{
-                this.resultados +=("===========================");
+                this.resultados += "\n" +("===========================");
                 Luchador atacante = luchadores.getLuchadores().get(i);
                 if (atacante.getHp() <= 0){
-                    this.resultados +=(atacante.getNombre() + " esta muerto. No puede atacar.");
+                    this.resultados += "\n" +(atacante.getNombre() + " esta muerto. No puede atacar.");
                     i = i+1;
                 }else{
                     ataqueLuchador(atacante);

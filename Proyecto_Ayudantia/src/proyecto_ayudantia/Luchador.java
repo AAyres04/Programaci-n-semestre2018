@@ -88,7 +88,7 @@ public class Luchador extends Entidad{
                 "DEF: " + this.def +  "\n" +
                 "SPD: " + this.spd + "\n" +
                 "HP: " + this.hp + "\n" +
-                "Estrella: " + this.star;
+                "Estrella: " + this.star +"\n";
     }
     
 }
