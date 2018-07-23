@@ -112,7 +112,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     private boolean inputIsInt(){
         //condiciones que gatillan la excepción: Que en el textfield se coloque un valor que no sea numerico
         //medidas paliativas de la excepción: Cubre todos los intentos de igresar un caracter que no sea numerico.
-        //justificacion del tipo de la excepcion usada: En la documentacion de la clase Integer, aparece dicha excepción.
+        //justificacion del tipo de la excepcion usada: En la documentacion de la clase Integer, aparece dicha excepción ("throws").
         
         try{
             Integer.parseInt(this.numeroSummons.getText());
