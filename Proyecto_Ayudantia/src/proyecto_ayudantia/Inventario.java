@@ -21,7 +21,7 @@ public class Inventario {
     }
     
     protected void elegirElemento(int index, String tipoElemento){
-        String aviso = "Luchador fuera de rango";
+        String aviso = "Elemento fuera de rango";
         if (validarIndex(index)){
             System.out.println("------------------" + tipoElemento +" N°" + (index+1) + "------------------");
             System.out.println(this.elementos.get(index));
@@ -30,17 +30,18 @@ public class Inventario {
         }
     }
     
-    public void mostrarElementos(String tipoElemento){
+    public String mostrarElementos(String tipoElemento){
+        String elemento ="";
         for (int i = 0; i < cantidadElementos(); i++){
-            System.out.println("------------------" + tipoElemento +" N°" + (i+1) + "------------------");
-            System.out.println(this.elementos.get(i));
+            elemento += ("--------------" + tipoElemento +" N°" + (i+1) + "--------------" + "\n" + this.elementos.get(i));
         }
+        return elemento;
     }
     
     private boolean validarIndex(int index){ //en caso de usarlo en otro método
         return index > 0 && index < cantidadElementos();
     }
-    
+        
     public int cantidadElementos(){
         return this.elementos.size();
     }

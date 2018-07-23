@@ -5,6 +5,8 @@
  */
 package proyecto_ayudantia;
 
+import GUIproyecto_ayudantia.*;
+
 /**
  *
  * @author arturoayres
@@ -36,8 +38,11 @@ public class Main {
         System.out.println("-------------------------");
         o.mostrarObjeto();*/
         
-        Batalla batoru = new Batalla();
-        batoru.batallar();
+        /*Batalla batoru = new Batalla();
+        batoru.batallar();*/
+        
+        MenuPrincipal menu = new MenuPrincipal("GameTest");
+        menu.setVisible(true);
         
     }
     
