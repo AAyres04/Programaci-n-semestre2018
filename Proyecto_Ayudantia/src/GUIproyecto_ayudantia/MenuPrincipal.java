@@ -101,7 +101,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
             
             
         } else if (ae.getSource() == this.batalla){
-            if(this.luchadoresInvocados.cantidadLuchadores() > 1){
+            if(this.luchadoresInvocados.cantidadLuchadores() >= 1){
                 VentanaBatalla batalla = new VentanaBatalla("Resultados", this.luchadoresInvocados);
                 batalla.setVisible(true);
                 this.setVisible(false);
